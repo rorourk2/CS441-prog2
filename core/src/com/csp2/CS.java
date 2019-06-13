@@ -18,10 +18,11 @@ public class CS extends ApplicationAdapter {
 	TextureRegion[] frames;
 	Animation a;
 	private float time=0;
+	private float move=0;
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("sky_full_Blue.png");
+		img = new Texture("sky_day.png");
 		the = new Texture("running.png");
 
 		TextureRegion[][] tmp=TextureRegion.split(the,420,504);
@@ -41,11 +42,20 @@ public class CS extends ApplicationAdapter {
 	@Override
 	public void render () {
 		time+= Gdx.graphics.getDeltaTime();
-		Gdx.gl.glClearColor((float)1, 1, 1, 1);
+
+		Gdx.gl.glClearColor((float)0, (float).8, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		if (Gdx.input.isTouched()) {
+			if (Gdx.input.getX() < Gdx.graphics.getWidth() / 2){
+				move-=1;
+			} else {
+				move+=1;
+			}
+		}
 		batch.begin();
-		batch.draw(img,0,0);
-		batch.draw((TextureRegion)a.getKeyFrame(time,true), (float)0, (float)0);
+		//batch.draw(img,0,0);
+		batch.draw((TextureRegion)a.getKeyFrame(time,true), (float)0+move, (float)0);
 		batch.end();
 	}
 	
