@@ -14,7 +14,7 @@ import static com.badlogic.gdx.graphics.g2d.Animation.PlayMode.LOOP;
 
 public class CS extends ApplicationAdapter {
 	SpriteBatch batch;
-	Texture img;
+	Texture img, ground;
 	Texture the;
 	TextureRegion[] frames,back;
 	Animation a;
@@ -28,7 +28,7 @@ public class CS extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		//img = new Texture("back.png");
 		the = new Texture("running.png");
-
+		ground = new Texture("ground.png");
 		TextureRegion[][] tmp=TextureRegion.split(the,420,504);
 		//TextureRegion[][] tmp2=TextureRegion.split(img,2000,1250);
 
@@ -80,13 +80,13 @@ public class CS extends ApplicationAdapter {
 
 		if (Gdx.input.isTouched()) {
 			if (Gdx.input.getX() < Gdx.graphics.getWidth() / 2){
-				move-=1;
+				move-=1.5;
 			} else {
-				move+=1;
+				move+=1.5;
 			}
 		}
 		batch.begin();
-		//batch.draw(img,0,0);
+		batch.draw(ground,0,0);
         //batch.draw((TextureRegion)b.getKeyFrame(time,true), (float)0, (float)0);
 		batch.draw((TextureRegion)a.getKeyFrame(time,true), (float)0+move, (float)0);
 
@@ -96,6 +96,6 @@ public class CS extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 		batch.dispose();
-		//img.dispose();
+		ground.dispose();
 	}
 }
